@@ -144,4 +144,3 @@ Por ejemplo:
 
 - `npm run dev`: Ejecuta el servidor en modo desarrollo con reinicio automático.
 - `npm start`: Ejecuta en modo producción.
-
