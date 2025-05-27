@@ -6,11 +6,11 @@ dotenv.config();
 
 // Crear instancia de Sequelize con variables de entorno
 const sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USER,
-  process.env.MYSQL_PASSWORD,
+  process.env.AZURE_MYSQL_DATABASE,
+  process.env.AZURE_MYSQL_USER,
+  process.env.AZURE_MYSQL_PASSWORD,
   {
-    host: process.env.DB_HOST,
+    host: process.env.AZURE_MYSQL_HOST,
     dialect: "mysql",
     pool: {
       max: 10,
