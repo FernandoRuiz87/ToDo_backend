@@ -12,6 +12,12 @@ const sequelize = new Sequelize(
   {
     host: process.env.AZURE_MYSQL_HOST,
     dialect: "mysql",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // Asegúrate de entender los riesgos si lo dejas en false
+      },
+    },
     pool: {
       max: 10,
       min: 0,
@@ -21,15 +27,3 @@ const sequelize = new Sequelize(
     logging: false, // Cambiar a true para ver las consultas en consola
   }
 );
-
-// Probar conexión
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Conexión a MySQL establecida con Sequelize.");
-  } catch (error) {
-    console.error("Error al conectar a la base de datos:", error);
-  }
-})();
-
-module.exports = sequelize;
