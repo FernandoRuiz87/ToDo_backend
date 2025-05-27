@@ -17,8 +17,7 @@ const taskListRoute = require("./src/routes/taskList.route");
 const taskRoute = require("./src/routes/task.route");
 
 // Configuraciones
-const HOST = process.env.API_HOST;
-const PORT = process.env.API_PORT;
+const PORT = process.env.PORT || 3000; // Azure usa process.env.PORT
 
 // Middlewares globales
 app.use(cors);
@@ -26,20 +25,20 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ruta de documentación
+// Documentación
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas públicas
 app.use("/auth", authRoute);
 
-// Middleware de autorización para rutas protegidas
+// Middleware de autorización
 app.use(authorization);
 
 // Rutas protegidas
 app.use("/taskList", taskListRoute);
 app.use("/tasks", taskRoute);
 
-// Middleware para manejar rutas no encontradas
+// Ruta no encontrada
 app.use(notFound);
 
 // Inicio del servidor
@@ -47,11 +46,8 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("✅ Conectado a la base de datos MySQL");
-    app.listen(PORT, HOST, () => {
-      console.log(`🚀 Servidor corriendo en http://${HOST}:${PORT}`);
-      console.log(
-        `📚 Documentación disponible en http://${HOST}:${PORT}/api-docs`
-      );
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
     });
   })
   .catch((err) => console.error("❌ Error de conexión:", err));
